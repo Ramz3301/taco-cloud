@@ -1,4 +1,4 @@
-package com.example.tacocloud.security;
+package com.example.tacocloud;
 
 import lombok.AccessLevel;
 import lombok.Data;
