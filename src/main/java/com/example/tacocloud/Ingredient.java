@@ -1,4 +1,4 @@
-package com.example.tacocloud.tacos;
+package com.example.tacocloud;
 
 import lombok.AccessLevel;
 import lombok.Data;
@@ -15,7 +15,7 @@ import javax.persistence.Id;
 public class Ingredient { //todo am i need public constructor?
 
     @Id
-    public final String id;
+    public Long id;
     public final String name;
     public final Type type;
 
@@ -23,3 +23,4 @@ public class Ingredient { //todo am i need public constructor?
         WRAP, PROTEIN, VEGGIES, CHEESE, SAUCE
     }
 }
+

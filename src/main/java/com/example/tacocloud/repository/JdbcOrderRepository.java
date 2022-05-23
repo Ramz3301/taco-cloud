@@ -1,17 +1,14 @@
-package com.example.tacocloud.repository;
-
-import com.example.tacocloud.tacos.Order;
-import com.example.tacocloud.tacos.Taco;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
-
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+//package com.example.tacocloud.repository;
+//
+//import com.example.tacocloud.Order;
+//import com.example.tacocloud.Taco;
+//import com.fasterxml.jackson.databind.ObjectMapper;
+//import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.jdbc.core.JdbcTemplate;
+//import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
+//
+//import java.util.*;
+//
 //public class JdbcOrderRepository implements OrderRepository {
 //
 //    private SimpleJdbcInsert orderInserter;
@@ -43,6 +40,16 @@ import java.util.Map;
 //        return order;
 //    }
 //
+//    @Override
+//    public List<Order> findByDeliveryZip(String deliveryZip) {
+//        return null;
+//    }
+//
+//    @Override
+//    public List<Order> readOrdersByDeliveryZipAndPlacedAtBetween(String deliveryZop, Date startDate, Date endDate) {
+//        return null;
+//    }
+//
 //    private Long saveOrderDetails(Order order) {
 //        @SuppressWarnings("unchecked")
 //        Map<String, Object> values =
@@ -60,5 +67,55 @@ import java.util.Map;
 //        values.put("tacoOrder", orderId);
 //        values.put("taco", taco.getId());
 //        orderTacoInserter.execute(values);
+//    }
+//
+//    @Override
+//    public <S extends Order> Iterable<S> saveAll(Iterable<S> iterable) {
+//        return null;
+//    }
+//
+//    @Override
+//    public Optional<Order> findById(Long aLong) {
+//        return Optional.empty();
+//    }
+//
+//    @Override
+//    public boolean existsById(Long aLong) {
+//        return false;
+//    }
+//
+//    @Override
+//    public Iterable<Order> findAll() {
+//        return null;
+//    }
+//
+//    @Override
+//    public Iterable<Order> findAllById(Iterable<Long> iterable) {
+//        return null;
+//    }
+//
+//    @Override
+//    public long count() {
+//        return 0;
+//    }
+//
+//    @Override
+//    public void deleteById(Long aLong) {
+//
+//    }
+//
+//    @Override
+//    public void delete(Order order) {
+//
+//    }
+//
+//    @Override
+//    public void deleteAll(Iterable<? extends Order> iterable) {
+//
+//    }
+//
+//    @Override
+//    public void deleteAll() {
+//
 //    }
 //}
