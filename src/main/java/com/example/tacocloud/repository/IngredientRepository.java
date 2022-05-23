@@ -5,9 +5,9 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface IngredientRepository
         extends CrudRepository<Ingredient, Long> {
-    Iterable<Ingredient> findAll();
-
-    Ingredient findOne(String id);
-
-    Ingredient save(Ingredient ingredient);
+//    Iterable<Ingredient> findAll();
+//
+//    Ingredient findOne(String id);
+//
+//    Ingredient save(Ingredient ingredient);
 }

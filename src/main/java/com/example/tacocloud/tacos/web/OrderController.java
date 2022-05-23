@@ -22,6 +22,9 @@ public class OrderController {
 
     private OrderRepository orderRepository;
 
+    public OrderController() {
+    }
+
     public OrderController(OrderRepository orderRepository) {
         this.orderRepository = orderRepository;
     }

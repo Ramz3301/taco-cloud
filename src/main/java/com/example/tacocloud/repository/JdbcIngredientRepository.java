@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Optional;
 
 @Repository
 public class JdbcIngredientRepository implements IngredientRepository {
@@ -19,16 +20,66 @@ public class JdbcIngredientRepository implements IngredientRepository {
     }
 
     @Override
+    public <S extends Ingredient> Iterable<S> saveAll(Iterable<S> entities) {
+        return null;
+    }
+
+    @Override
+    public Optional<Ingredient> findById(Long aLong) {
+        return Optional.empty();
+    }
+
+    @Override
+    public boolean existsById(Long aLong) {
+        return false;
+    }
+
+    @Override
     public Iterable<Ingredient> findAll() {
         return jdbc.query("SELECT id, name, type FROM Ingredient",
                 this::mapRowToIngredient);
     }
 
     @Override
-    public Ingredient findOne(String id) {
-        return jdbc.queryForObject("SELECT id, name, type FROM Ingredient WHERE id = ?",
-                this::mapRowToIngredient, id);
+    public Iterable<Ingredient> findAllById(Iterable<Long> longs) {
+        return null;
     }
+
+    @Override
+    public long count() {
+        return 0;
+    }
+
+    @Override
+    public void deleteById(Long aLong) {
+
+    }
+
+    @Override
+    public void delete(Ingredient entity) {
+
+    }
+
+    @Override
+    public void deleteAllById(Iterable<? extends Long> longs) {
+
+    }
+
+    @Override
+    public void deleteAll(Iterable<? extends Ingredient> entities) {
+
+    }
+
+    @Override
+    public void deleteAll() {
+
+    }
+
+//    @Override
+//    public Ingredient findOne(String id) {
+//        return jdbc.queryForObject("SELECT id, name, type FROM Ingredient WHERE id = ?",
+//                this::mapRowToIngredient, id);
+//    }
 
     private Ingredient mapRowToIngredient(ResultSet resultSet, int rowNum) throws SQLException {
         return new Ingredient(

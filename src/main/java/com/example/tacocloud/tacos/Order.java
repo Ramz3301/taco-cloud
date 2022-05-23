@@ -3,14 +3,18 @@ package com.example.tacocloud.tacos;
 import lombok.Data;
 import org.hibernate.validator.constraints.CreditCardNumber;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import java.util.Date;
 
 @Data
+@Entity
 public class Order {
 
+    @Id
     private Long id;
 
     private Date placedAt;
