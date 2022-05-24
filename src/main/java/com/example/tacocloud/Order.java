@@ -18,7 +18,7 @@ import java.util.List;
 public class Order implements Serializable {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private Date placedAt;
@@ -41,7 +41,10 @@ public class Order implements Serializable {
     @Digits(integer = 3, fraction = 0, message = "Invalid CVV")
     private String ccCVV;
 
-    @ManyToMany(targetEntity=Taco.class)
+//    @ManyToOne
+//    private User user;
+
+    @ManyToMany(targetEntity = Taco.class)
     private List<Taco> tacos = new ArrayList<>();
 
     public void addDesign(Taco design) {

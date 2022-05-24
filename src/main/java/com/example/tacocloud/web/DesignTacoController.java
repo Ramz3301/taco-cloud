@@ -1,104 +1,42 @@
 package com.example.tacocloud.web;
 
-import java.security.Principal;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-
-import javax.validation.Valid;
-
-import com.example.tacocloud.Ingredient.Type;
-import com.example.tacocloud.Ingredient;
-import com.example.tacocloud.Order;
 import com.example.tacocloud.Taco;
-import com.example.tacocloud.repository.IngredientRepository;
 import com.example.tacocloud.repository.TacoRepository;
-import lombok.NoArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
-import lombok.extern.slf4j.Slf4j;
+import java.util.Optional;
 
-@Controller
-@RequestMapping("/design")
-@SessionAttributes("order")
-@Slf4j
+@RestController
+@RequestMapping(path = "/design", produces = "application/json")
+@CrossOrigin(origins = "*")
 public class DesignTacoController {
 
-    private final IngredientRepository ingredientRepo;
+    private TacoRepository tacoRepository;
 
-    private TacoRepository tacoRepo;
-//
-//    public DesignTacoController() {
+//    @GetMapping("/recent")
+//    public Iterable<Taco> recentTacos() {
+//        PageRequest page = PageRequest.of(
+//                0, 12, Sort.by("createdAt").descending());
+//        return tacoRepository.findAll(page).getContent();
 //    }
 
-    @Autowired
-    public DesignTacoController(
-            IngredientRepository ingredientRepo,
-            TacoRepository tacoRepo) {
-        this.ingredientRepo = ingredientRepo;
-        this.tacoRepo = tacoRepo;
-    }
+    @GetMapping("/{id}")
+    public ResponseEntity<Taco> tacoById(@PathVariable("id") Long id) {
+        Optional<Taco> optionalTaco = tacoRepository.findById(id);
 
-    @ModelAttribute(name = "order")
-    public Order order() {
-        return new Order();
-    }
-
-    @ModelAttribute(name = "design")
-    public Taco design() {
-        return new Taco();
-    }
-
-    @GetMapping
-    public String showDesignForm(Model model, Principal principal) {
-        log.info("   --- Designing taco");
-        List<Ingredient> ingredients = new ArrayList<>();
-        ingredientRepo.findAll().forEach(i -> ingredients.add(i));
-
-        Type[] types = Ingredient.Type.values();
-        for (Type type : types) {
-            model.addAttribute(type.toString().toLowerCase(),
-                    filterByType(ingredients, type));
+        if (optionalTaco.isPresent()) {
+            return new ResponseEntity<>(optionalTaco.get(), HttpStatus.OK);
         }
 
-//        String username = principal.getName();
-//        User user = userRepo.findByUsername(username);
-//        model.addAttribute("user", user);
-
-        return "design";
+        return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
     }
 
-    @PostMapping
-    public String processDesign(
-            @Valid Taco taco, Errors errors,
-            @ModelAttribute Order order) {
-
-        log.info("   --- Saving taco");
-
-        if (errors.hasErrors()) {
-            return "design";
-        }
-
-        Taco saved = tacoRepo.save(taco);
-        order.addDesign(saved);
-
-        return "redirect:/orders/current";
-    }
-
-    private List<Ingredient> filterByType(
-            List<Ingredient> ingredients, Type type) {
-        return ingredients
-                .stream()
-                .filter(x -> x.getType().equals(type))
-                .collect(Collectors.toList());
+    @PostMapping(consumes = "application/json")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Taco postTaco(@RequestBody Taco taco) {
+        return tacoRepository.save(taco);
     }
 
 }
